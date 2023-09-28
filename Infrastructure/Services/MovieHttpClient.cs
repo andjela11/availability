@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Application.Contracts;
 using Application.Interfaces;
+using Infrastructure.Helpers;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Services;
@@ -20,11 +21,21 @@ public class MovieHttpClient : IMovieHttpClient
 
     public async Task<MovieDto?> GetMovieAsync(int id)
     {
-        var httpResponseMessage = await _httpClient.GetAsync($"Movies/{id}");
+        var httpResponseMessage = await _httpClient.GetAsync($"{Constants.Controllers.MoviesController}/{id}");
         var content = await httpResponseMessage.Content.ReadAsStringAsync();
         var opt = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
         var movieDto = JsonSerializer.Deserialize<MovieDto>(content, opt);
 
         return movieDto;
+    }
+
+    public async Task<List<MovieDto>?> GetAllMoviesAsync()
+    {
+        var httpResponseMessage = await _httpClient.GetAsync(Constants.Controllers.MoviesController);
+        var content = await httpResponseMessage.Content.ReadAsStringAsync();
+        var opt = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var moviesDto = JsonSerializer.Deserialize<List<MovieDto>>(content, opt);
+
+        return moviesDto;
     }
 }

@@ -18,6 +18,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/{id:int}", MovieEndpoints.GetMovie);
+app.MapGet("/{id:int}", MovieEndpoints.GetMovieAsync);
+app.MapGet("", MovieEndpoints.GetAllMoviesAsync);
 
 app.Run();
