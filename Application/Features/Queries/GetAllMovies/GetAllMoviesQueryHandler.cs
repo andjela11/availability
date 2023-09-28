@@ -1,4 +1,5 @@
 ﻿using Application.Contracts;
+using Application.Exceptions;
 using Application.Interfaces;
 using MediatR;
 
@@ -16,6 +17,6 @@ public class GetAllMoviesQueryHandler : IRequestHandler<GetAllMoviesQuery, List<
     public async Task<List<MovieDto>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
     {
         var movieDtos = await _movieHttpClient.GetAllMoviesAsync();
-        return movieDtos ?? throw new Exception("No movies");
+        return movieDtos ?? throw new EntityNotFoundException("No movies");
     }
 }

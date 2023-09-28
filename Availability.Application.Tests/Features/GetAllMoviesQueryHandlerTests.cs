@@ -1,4 +1,5 @@
 ﻿using Application.Contracts;
+using Application.Exceptions;
 using Application.Features.Queries.GetAllMovies;
 using Application.Interfaces;
 using FluentAssertions;
@@ -50,7 +51,7 @@ public class GetAllMoviesQueryHandlerTests
 
         // Act & Assert
         await _sut.Invoking(x => x.Handle(new GetAllMoviesQuery(), new CancellationToken()))
-            .Should().ThrowAsync<Exception>()
+            .Should().ThrowAsync<EntityNotFoundException>()
             .WithMessage("No movies");
     }
 }

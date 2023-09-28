@@ -8,7 +8,10 @@ namespace MinimalAPI.Endpoints;
 
 public static class MovieEndpoints
 {
-    public static async Task<IResult> GetMovieAsync(int id, [FromServices] IMovieHttpClient client, [FromServices] IMediator mediator)
+    public static async Task<IResult> GetMovieAsync(
+        int id, 
+        [FromServices] IMovieHttpClient client, 
+        [FromServices] IMediator mediator)
     {
         var getMovieQuery = new GetMovieQuery(id);
         var movieDto = await mediator.Send(getMovieQuery, new CancellationToken());
