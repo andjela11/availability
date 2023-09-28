@@ -27,4 +27,14 @@ public class MovieHttpClient : IMovieHttpClient
 
         return movieDto;
     }
+
+    public async Task<List<MovieDto>?> GetAllMoviesAsync()
+    {
+        var httpResponseMessage = await _httpClient.GetAsync($"Movies");
+        var content = await httpResponseMessage.Content.ReadAsStringAsync();
+        var opt = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        var moviesDto = JsonSerializer.Deserialize<List<MovieDto>>(content, opt);
+
+        return moviesDto;
+    }
 }

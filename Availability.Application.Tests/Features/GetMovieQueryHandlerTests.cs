@@ -6,7 +6,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
-namespace Availability.Application.Tests;
+namespace Availability.Application.Tests.Features;
 
 public class GetMovieQueryHandlerTests
 {
