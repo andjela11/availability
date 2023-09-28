@@ -11,9 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPI", "MinimalAPI\MinimalAPI.csproj", "{48275DE8-E1B8-4A7B-B4F1-CBEF6E3B61A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{35DCF285-A0D1-41A4-A283-7743D0152338}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C712E63E-4CAF-4536-8B55-F4EC11C32651}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{493750D5-3292-4FEB-8381-84B22AA3B589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Availability.Application.Tests", "Availability.Application.Tests\Availability.Application.Tests.csproj", "{AD53AE42-1B3A-45F4-925A-1F058B0CC577}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,13 +42,16 @@ Global
 		{48275DE8-E1B8-4A7B-B4F1-CBEF6E3B61A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48275DE8-E1B8-4A7B-B4F1-CBEF6E3B61A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48275DE8-E1B8-4A7B-B4F1-CBEF6E3B61A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35DCF285-A0D1-41A4-A283-7743D0152338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35DCF285-A0D1-41A4-A283-7743D0152338}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35DCF285-A0D1-41A4-A283-7743D0152338}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35DCF285-A0D1-41A4-A283-7743D0152338}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C712E63E-4CAF-4536-8B55-F4EC11C32651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C712E63E-4CAF-4536-8B55-F4EC11C32651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C712E63E-4CAF-4536-8B55-F4EC11C32651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C712E63E-4CAF-4536-8B55-F4EC11C32651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD53AE42-1B3A-45F4-925A-1F058B0CC577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD53AE42-1B3A-45F4-925A-1F058B0CC577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD53AE42-1B3A-45F4-925A-1F058B0CC577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD53AE42-1B3A-45F4-925A-1F058B0CC577}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD53AE42-1B3A-45F4-925A-1F058B0CC577} = {493750D5-3292-4FEB-8381-84B22AA3B589}
 	EndGlobalSection
 EndGlobal

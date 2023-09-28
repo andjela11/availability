@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Application.Contracts;
+﻿using Application.Contracts;
 using Application.Exceptions;
 using Application.Interfaces;
 using MediatR;
@@ -14,7 +13,7 @@ public class GetMovieQueryHandler : IRequestHandler<GetMovieQuery, MovieDto?>
     {
         _httpClient = httpClient;
     }
-    
+
     public async Task<MovieDto?> Handle(GetMovieQuery request, CancellationToken cancellationToken)
     {
         var movieDto = await _httpClient.GetMovieAsync(request.Id);

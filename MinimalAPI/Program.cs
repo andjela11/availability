@@ -1,8 +1,5 @@
-using Application;
-using Application.Interfaces;
+﻿using Application;
 using Infrastructure;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using MinimalAPI.Endpoints;
 using MinimalAPI.Properties;
 

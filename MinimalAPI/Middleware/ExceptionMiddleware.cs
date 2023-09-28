@@ -2,7 +2,6 @@
 using System.Text.Json;
 using Application.Exceptions;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MinimalAPI.Models;
 
 namespace MinimalAPI.Properties;

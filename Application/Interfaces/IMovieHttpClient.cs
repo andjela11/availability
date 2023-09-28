@@ -1,4 +1,4 @@
-using Application.Contracts;
+﻿using Application.Contracts;
 
 namespace Application.Interfaces;
 
