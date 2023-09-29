@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Application.Contracts;
 using Application.Interfaces;
 using Infrastructure.Helpers;
@@ -9,7 +10,6 @@ namespace Infrastructure.Services;
 public class MovieHttpClient : IMovieHttpClient
 {
     private readonly HttpClient _httpClient;
-    private readonly JsonSerializerOptions _options;
 
     public MovieHttpClient(HttpClient httpClient, IConfiguration configuration)
     {
@@ -17,33 +17,19 @@ public class MovieHttpClient : IMovieHttpClient
         var uri = new Uri(configuration.GetSection("ApiUrls:MovieApiBaseUrl").Value);
         _httpClient.BaseAddress = uri;
         _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-
-        _options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     }
-
-
+    
     public async Task<MovieDto?> GetMovieAsync(int id)
     {
-        var content = await SendRequest($"{Constants.Controllers.MoviesController}/{id}");
-
-        var movieDto = JsonSerializer.Deserialize<MovieDto>(content, _options);
+        var movieDto = await _httpClient.GetFromJsonAsync<MovieDto>($"{Constants.Controllers.Movies}/{id}");
 
         return movieDto;
     }
 
     public async Task<List<MovieDto>?> GetAllMoviesAsync()
     {
-        var content = await SendRequest(Constants.Controllers.MoviesController);
-
-        var moviesDto = JsonSerializer.Deserialize<List<MovieDto>>(content, _options);
+        var moviesDto = await _httpClient.GetFromJsonAsync<List<MovieDto>>(Constants.Controllers.Movies);
 
         return moviesDto;
     }
-
-    private async Task<string> SendRequest(string requestUri)
-    {
-        var httpResponseMessage = await _httpClient.GetAsync(requestUri);
-        return await httpResponseMessage.Content.ReadAsStringAsync();
-    }
-
 }

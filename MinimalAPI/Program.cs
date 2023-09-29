@@ -22,5 +22,7 @@ app.MapGet("/Movie/{id:int}", MovieEndpoints.GetMovieAsync);
 app.MapGet("/Movie/", MovieEndpoints.GetAllMoviesAsync);
 app.MapPost("/Reservation/", ReservationEndpoints.CreateReservationAsync);
 app.MapGet("/Reservation/{id:int}", ReservationEndpoints.GetReservationAsync);
+app.MapGet("/Reservation/", ReservationEndpoints.GetAllReservations);
+app.MapGet("/Reservations/", ReservationEndpoints.ShowAvailableReservations);
 
 app.Run();

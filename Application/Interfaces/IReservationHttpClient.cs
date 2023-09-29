@@ -6,4 +6,5 @@ public interface IReservationHttpClient
 {
     Task<int> CreateReservationAsync(CreateReservationDto createReservationDto);
     Task<ReservationDto?> GetReservationAsync(int id);
+    Task<List<ReservationDto>?> GetAllReservationsAsync();
 }

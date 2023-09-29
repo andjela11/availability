@@ -4,8 +4,8 @@ public static class Constants
 {
     public static class Controllers
     {
-        public const string MoviesController = "Movies";
-        public const string ReservationsController = "Reservations";
+        public const string Movies = "Movies";
+        public const string Reservations = "Reservations";
     }
 
 }
