@@ -18,7 +18,9 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/{id:int}", MovieEndpoints.GetMovieAsync);
-app.MapGet("", MovieEndpoints.GetAllMoviesAsync);
+app.MapGet("/Movie/{id:int}", MovieEndpoints.GetMovieAsync);
+app.MapGet("/Movie/", MovieEndpoints.GetAllMoviesAsync);
+app.MapPost("/Reservation/", ReservationEndpoints.CreateReservationAsync);
+app.MapGet("/Reservation/{id:int}", ReservationEndpoints.GetReservationAsync);
 
 app.Run();

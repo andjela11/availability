@@ -13,7 +13,7 @@ public class GetAllMoviesQueryHandler : IRequestHandler<GetAllMoviesQuery, List<
     {
         _movieHttpClient = movieHttpClient;
     }
-    
+
     public async Task<List<MovieDto>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
     {
         var movieDtos = await _movieHttpClient.GetAllMoviesAsync();
