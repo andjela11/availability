@@ -26,25 +26,25 @@ public class GetAllMoviesQueryHandlerTests
             new MovieDto(3, "Thor 2", new List<string>(), "", 2020),
         };
 
-        _mockHttpClient.Setup(x => 
+        _mockHttpClient.Setup(x =>
             x.GetAllMoviesAsync())
             .Returns(Task.FromResult(movieDtos));
         _sut = new GetAllMoviesQueryHandler(_mockHttpClient.Object);
 
         // Act
         var result = await _sut.Handle(new GetAllMoviesQuery(), new CancellationToken());
-        
+
         // Assert
         result.Count.Should().Be(movieDtos.Count);
     }
-    
+
     [Test]
     public async Task Handle_GetEmptyMoviesList_ShouldthrowException()
     {
         // Arrange
         List<MovieDto> movieDtos = default;
 
-        _mockHttpClient.Setup(x => 
+        _mockHttpClient.Setup(x =>
             x.GetAllMoviesAsync())
             .Returns(Task.FromResult(movieDtos));
         _sut = new GetAllMoviesQueryHandler(_mockHttpClient.Object);

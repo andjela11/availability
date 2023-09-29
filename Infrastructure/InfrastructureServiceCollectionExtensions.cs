@@ -9,6 +9,7 @@ public static class InfrastructureServiceCollectionExtensions
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddHttpClient<IMovieHttpClient, MovieHttpClient>();
+        services.AddHttpClient<IReservationHttpClient, ReservationHttpClient>();
         return services;
     }
 }

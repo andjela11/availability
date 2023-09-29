@@ -7,5 +7,5 @@ public static class Constants
         public const string MoviesController = "Movies";
         public const string ReservationsController = "Reservations";
     }
-    
+
 }
