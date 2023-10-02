@@ -41,7 +41,7 @@ public class ExceptionMiddleware
         }
         catch (NoAvailableSeatsException e)
         {
-            await GenerateExceptionResponse(context, e, (int)HttpStatusCode.Forbidden);
+            await GenerateExceptionResponse(context, e, (int)HttpStatusCode.BadRequest);
         }
         catch (Exception e)
         {
