@@ -6,7 +6,7 @@ public class ShowAvailableReservationsQueryValidator : AbstractValidator<ShowAva
 {
     public ShowAvailableReservationsQueryValidator()
     {
-        RuleFor(x => x.PageNumber).GreaterThan(0);
+        RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(0);
         RuleFor(x => x.PageSize).GreaterThan(0);
     }
 }

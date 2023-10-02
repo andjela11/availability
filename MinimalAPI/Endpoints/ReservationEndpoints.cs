@@ -36,7 +36,7 @@ public static class ReservationEndpoints
 
     public static async Task<IResult> ShowAvailableReservations(
         [FromServices] IMediator mediator,
-        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageNumber = 0,
         [FromQuery] int pageSize = 10)
     {
         var showAvailableReservationsQuery = new ShowAvailableReservationsQuery(pageNumber, pageSize);

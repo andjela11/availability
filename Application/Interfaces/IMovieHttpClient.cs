@@ -6,5 +6,5 @@ public interface IMovieHttpClient
 {
     Task<MovieDto?> GetMovieAsync(int id);
     
-    Task<List<MovieDto>?> GetAllMoviesAsync();
+    Task<List<MovieDto>?> FilterMoviesAsync();
 }

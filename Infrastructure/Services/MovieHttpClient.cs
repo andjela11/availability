@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Application.Contracts;
 using Application.Interfaces;
 using Infrastructure.Helpers;
@@ -25,9 +26,9 @@ public class MovieHttpClient : IMovieHttpClient
         return movieDto;
     }
 
-    public async Task<List<MovieDto>?> GetAllMoviesAsync()
+    public async Task<List<MovieDto>?> FilterMoviesAsync()
     {
-        var moviesDto = await _httpClient.GetFromJsonAsync<List<MovieDto>>(Constants.Controllers.Movies);
+        var moviesDto = await _httpClient.GetFromJsonAsync<List<MovieDto>>($"{Constants.Controllers.Movies}/filter");
 
         return moviesDto;
     }

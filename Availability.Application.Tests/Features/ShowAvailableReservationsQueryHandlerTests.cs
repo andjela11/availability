@@ -35,7 +35,7 @@ public class ShowAvailableReservationsQueryHandlerTests
             new(1, 1, 100), new(2,2, 200),
         };
 
-        _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
+        _movieHttpClient.Setup(x => x.FilterMoviesAsync())
             .Returns(Task.FromResult<List<MovieDto>?>(movies));
         _reservationHttpClient.Setup(x => x.GetAllReservationsAsync())
             .Returns(Task.FromResult<List<ReservationDto>?>(reservations));
@@ -63,7 +63,7 @@ public class ShowAvailableReservationsQueryHandlerTests
             new(1, 1, 100), new(2, 2, 200),
         };
 
-        _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
+        _movieHttpClient.Setup(x => x.FilterMoviesAsync())
             .Returns(Task.FromResult<List<MovieDto>?>(movies));
         _reservationHttpClient.Setup(x => x.GetAllReservationsAsync())
             .Returns(Task.FromResult<List<ReservationDto>?>(reservations));
@@ -86,7 +86,7 @@ public class ShowAvailableReservationsQueryHandlerTests
 
         List<ReservationDto> reservations = default;
 
-        _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
+        _movieHttpClient.Setup(x => x.FilterMoviesAsync())
             .Returns(Task.FromResult<List<MovieDto>?>(movies));
         _reservationHttpClient.Setup(x => x.GetAllReservationsAsync())
             .Returns(Task.FromResult<List<ReservationDto>?>(reservations));
@@ -106,7 +106,7 @@ public class ShowAvailableReservationsQueryHandlerTests
 
         var reservations = new List<ReservationDto>();
 
-        _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
+        _movieHttpClient.Setup(x => x.FilterMoviesAsync())
             .Returns(Task.FromResult<List<MovieDto>?>(movies));
         _reservationHttpClient.Setup(x => x.GetAllReservationsAsync())
             .Returns(Task.FromResult<List<ReservationDto>?>(reservations));

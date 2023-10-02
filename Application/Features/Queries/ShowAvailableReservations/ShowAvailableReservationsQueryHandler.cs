@@ -21,13 +21,7 @@ public class ShowAvailableReservationsQueryHandler : IRequestHandler<ShowAvailab
     public async Task<List<AvailableReservationDto>> Handle(ShowAvailableReservationsQuery request,
         CancellationToken cancellationToken)
     {
-        var reservations = await _reservationHttpClient.GetAllReservationsAsync();
-        var movies = await _movieHttpClient.GetAllMoviesAsync();
-
-        if (reservations is null)
-        {
-            throw new EntityNotFoundException("No reservations");
-        }
+        var movies = await _movieHttpClient.FilterMoviesAsync();
 
         if (movies is null)
         {
@@ -38,15 +32,15 @@ public class ShowAvailableReservationsQueryHandler : IRequestHandler<ShowAvailab
 
         foreach (var movie in movies)
         {
-            var reservationList = reservations.FindAll(x => x.MovieId == movie.Id);
-            if (reservationList.Count > 0)
+            var reservation = await _reservationHttpClient.GetReservationAsync(movie.Id);
+            if (reservation is not null)
             {
-                availableReservations.AddRange(reservationList.Select(reservation => AvailableReservationDto.FromMovieReservation(movie, reservation)));
+                availableReservations.Add(AvailableReservationDto.FromMovieReservation(movie, reservation));
             }
         }
 
         return availableReservations
-            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Skip((request.PageNumber) * request.PageSize)
             .Take(request.PageSize)
             .ToList();
     }
