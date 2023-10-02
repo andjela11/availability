@@ -11,13 +11,11 @@ namespace Availability.Application.Tests.Features;
 public class CreateReservationCommandHandlerTests
 {
     private CreateReservationCommandHandler _sut;
-    private Mock<IMovieHttpClient> _movieHttpClient;
     private Mock<IReservationHttpClient> _reservationHttpClient;
 
     [SetUp]
     public void Setup()
     {
-        _movieHttpClient = new Mock<IMovieHttpClient>();
         _reservationHttpClient = new Mock<IReservationHttpClient>();
     }
 
@@ -31,12 +29,10 @@ public class CreateReservationCommandHandlerTests
         var reservationDto = new CreateReservationDto(movieId, 200);
         var movieDto = new MovieDto(movieId, "Title", new List<string>(), null, null);
 
-        _movieHttpClient.Setup(x => x.GetMovieAsync(movieId))
-                        .Returns(Task.FromResult(movieDto));
         _reservationHttpClient.Setup(x => x.CreateReservationAsync(reservationDto))
                         .Returns(Task.FromResult(reservationId));
 
-        _sut = new CreateReservationCommandHandler(_movieHttpClient.Object, _reservationHttpClient.Object);
+        _sut = new CreateReservationCommandHandler(_reservationHttpClient.Object);
 
         // Act
         var result = await _sut.Handle(new CreateReservationCommand(reservationDto), new CancellationToken());
@@ -55,12 +51,10 @@ public class CreateReservationCommandHandlerTests
         var reservationDto = new CreateReservationDto(movieId, 200);
         MovieDto movieDto = default;
 
-        _movieHttpClient.Setup(x => x.GetMovieAsync(movieId))
-            .Returns(Task.FromResult(movieDto));
         _reservationHttpClient.Setup(x => x.CreateReservationAsync(reservationDto))
             .Returns(Task.FromResult(reservationId));
 
-        _sut = new CreateReservationCommandHandler(_movieHttpClient.Object, _reservationHttpClient.Object);
+        _sut = new CreateReservationCommandHandler(_reservationHttpClient.Object);
 
         // Act & Assert
         _sut.Invoking(x => x.Handle(new CreateReservationCommand(reservationDto), new CancellationToken()))

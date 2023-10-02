@@ -29,8 +29,7 @@ public class ExceptionMiddleware
                     x => x.ErrorMessage,
                     (propertyName, errorMessages) => new
                     {
-                        Key = propertyName,
-                        Values = errorMessages.Distinct().ToArray()
+                        Key = propertyName, Values = errorMessages.Distinct().ToArray()
                     })
                 .ToDictionary(x => x.Key, x => x.Values);
 
@@ -39,6 +38,10 @@ public class ExceptionMiddleware
         catch (EntityNotFoundException e)
         {
             await GenerateExceptionResponse(context, e, (int)HttpStatusCode.NotFound);
+        }
+        catch (NoAvailableSeatsException e)
+        {
+            await GenerateExceptionResponse(context, e, (int)HttpStatusCode.BadRequest);
         }
         catch (Exception e)
         {

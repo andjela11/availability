@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 using Application.Contracts;
 using Application.Interfaces;
@@ -24,7 +25,8 @@ public class ReservationHttpClient : IReservationHttpClient
 
     public async Task<int> CreateReservationAsync(CreateReservationDto createReservationDto)
     {
-        var httpResponseMessage = await _httpClient.PostAsJsonAsync(Constants.Controllers.Reservations, createReservationDto);
+        var httpResponseMessage =
+            await _httpClient.PostAsJsonAsync(Constants.Controllers.Reservations, createReservationDto);
         var content = await httpResponseMessage.Content.ReadAsStringAsync();
 
         var reservationId = JsonSerializer.Deserialize<int>(content, options);
@@ -39,10 +41,24 @@ public class ReservationHttpClient : IReservationHttpClient
 
     public async Task<ReservationDto?> GetReservationAsync(int id)
     {
-        var reservationDto = await _httpClient
-            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}{Constants.ReservationsRelativePaths.GetByMovieId}/{id}");
+        ReservationDto? result = default;
+        try
+        {
+            result = await _httpClient
+                .GetFromJsonAsync<ReservationDto>(
+                    $"{Constants.Controllers.Reservations}{Constants.ReservationsRelativePaths.GetByMovieId}/{id}");
+        }
+        catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
+        {
+            Console.WriteLine(e);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
-        return reservationDto;
+        return result;
     }
 
     public async Task<List<ReservationDto>?> GetAllReservationsAsync()
