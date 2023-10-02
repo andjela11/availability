@@ -28,7 +28,7 @@ public class MovieHttpClient : IMovieHttpClient
 
     public async Task<List<MovieDto>?> FilterMoviesAsync()
     {
-        var moviesDto = await _httpClient.GetFromJsonAsync<List<MovieDto>>($"{Constants.Controllers.Movies}/filter");
+        var moviesDto = await _httpClient.GetFromJsonAsync<List<MovieDto>>($"{Constants.Controllers.Movies}{Constants.MoviesRelativeUrls.Filter}");
 
         return moviesDto;
     }

@@ -40,7 +40,7 @@ public class ReservationHttpClient : IReservationHttpClient
     public async Task<ReservationDto?> GetReservationAsync(int id)
     {
         var reservationDto = await _httpClient
-            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}/get-by-movieid/{id}");
+            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}{Constants.ReservationsRelativePaths.GetByMovieId}/{id}");
 
         return reservationDto;
     }
