@@ -4,7 +4,7 @@ using Application.Exceptions;
 using FluentValidation;
 using MinimalAPI.Models;
 
-namespace MinimalAPI.Properties;
+namespace MinimalAPI.Middleware;
 
 public class ExceptionMiddleware
 {

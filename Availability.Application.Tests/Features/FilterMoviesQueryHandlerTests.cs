@@ -1,6 +1,6 @@
 ﻿using Application.Contracts;
 using Application.Exceptions;
-using Application.Features.Queries.GetAllMovies;
+using Application.Features.Queries.FilterMovies;
 using Application.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -8,9 +8,9 @@ using NUnit.Framework;
 
 namespace Availability.Application.Tests.Features;
 
-public class GetAllMoviesQueryHandlerTests
+public class FilterMoviesQueryHandlerTests
 {
-    private GetAllMoviesQueryHandler _sut;
+    private FilterMoviesQueryHandler _sut;
     private Mock<IMovieHttpClient> _mockHttpClient;
 
     [SetUp]
@@ -27,12 +27,12 @@ public class GetAllMoviesQueryHandlerTests
         };
 
         _mockHttpClient.Setup(x =>
-            x.GetAllMoviesAsync())
+            x.FilterMoviesAsync())
             .Returns(Task.FromResult(movieDtos));
-        _sut = new GetAllMoviesQueryHandler(_mockHttpClient.Object);
+        _sut = new FilterMoviesQueryHandler(_mockHttpClient.Object);
 
         // Act
-        var result = await _sut.Handle(new GetAllMoviesQuery(), new CancellationToken());
+        var result = await _sut.Handle(new FilterMoviesQuery(10,1), new CancellationToken());
 
         // Assert
         result.Count.Should().Be(movieDtos.Count);
@@ -45,12 +45,12 @@ public class GetAllMoviesQueryHandlerTests
         List<MovieDto> movieDtos = default;
 
         _mockHttpClient.Setup(x =>
-            x.GetAllMoviesAsync())
+            x.FilterMoviesAsync())
             .Returns(Task.FromResult(movieDtos));
-        _sut = new GetAllMoviesQueryHandler(_mockHttpClient.Object);
+        _sut = new FilterMoviesQueryHandler(_mockHttpClient.Object);
 
         // Act & Assert
-        await _sut.Invoking(x => x.Handle(new GetAllMoviesQuery(), new CancellationToken()))
+        await _sut.Invoking(x => x.Handle(new FilterMoviesQuery(10,1), new CancellationToken()))
             .Should().ThrowAsync<EntityNotFoundException>()
             .WithMessage("No movies");
     }

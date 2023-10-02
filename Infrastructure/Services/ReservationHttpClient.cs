@@ -24,8 +24,7 @@ public class ReservationHttpClient : IReservationHttpClient
 
     public async Task<int> CreateReservationAsync(CreateReservationDto createReservationDto)
     {
-        var httpContent = JsonContent.Create(createReservationDto);
-        var httpResponseMessage = await _httpClient.PostAsync(Constants.Controllers.ReservationsController, httpContent);
+        var httpResponseMessage = await _httpClient.PostAsJsonAsync(Constants.Controllers.Reservations, createReservationDto);
         var content = await httpResponseMessage.Content.ReadAsStringAsync();
 
         var reservationId = JsonSerializer.Deserialize<int>(content, options);
@@ -33,13 +32,24 @@ public class ReservationHttpClient : IReservationHttpClient
         return reservationId;
     }
 
+    public async Task UpdateReservationAsync(ReservationDto updateReservationDto)
+    {
+        await _httpClient.PutAsJsonAsync(Constants.Controllers.Reservations, updateReservationDto);
+    }
+
     public async Task<ReservationDto?> GetReservationAsync(int id)
     {
-        var httpResponseMessage = await _httpClient.GetAsync($"{Constants.Controllers.ReservationsController}/{id}");
-        var content = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        var reservationDto = JsonSerializer.Deserialize<ReservationDto>(content, options);
+        var reservationDto = await _httpClient
+            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}{Constants.ReservationsRelativePaths.GetByMovieId}/{id}");
 
         return reservationDto;
+    }
+
+    public async Task<List<ReservationDto>?> GetAllReservationsAsync()
+    {
+        var reservationsDto = await _httpClient
+            .GetFromJsonAsync<List<ReservationDto>>(Constants.Controllers.Reservations);
+
+        return reservationsDto;
     }
 }
