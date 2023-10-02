@@ -21,8 +21,8 @@ public class GetReservationQueryHandlerTests
     {
         // Arrange
         var reservationId = 3;
-        var reservationDto = new ReservationDto(3, 200);
-        
+        var reservationDto = new ReservationDto(3, 3, 200);
+
         _reservationHttpClient.Setup(x => x.GetReservationAsync(reservationId))
             .Returns(Task.FromResult<ReservationDto?>(reservationDto));
 
@@ -42,7 +42,7 @@ public class GetReservationQueryHandlerTests
         // Arrange
         var reservationId = 3;
         ReservationDto reservationDto = default;
-        
+
         _reservationHttpClient.Setup(x => x.GetReservationAsync(reservationId))
             .Returns(Task.FromResult<ReservationDto?>(reservationDto));
 

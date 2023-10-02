@@ -32,10 +32,15 @@ public class ReservationHttpClient : IReservationHttpClient
         return reservationId;
     }
 
+    public async Task UpdateReservationAsync(ReservationDto updateReservationDto)
+    {
+        await _httpClient.PutAsJsonAsync(Constants.Controllers.Reservations, updateReservationDto);
+    }
+
     public async Task<ReservationDto?> GetReservationAsync(int id)
     {
         var reservationDto = await _httpClient
-            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}/{id}");
+            .GetFromJsonAsync<ReservationDto>($"{Constants.Controllers.Reservations}/get-by-movieid/{id}");
 
         return reservationDto;
     }
@@ -44,7 +49,7 @@ public class ReservationHttpClient : IReservationHttpClient
     {
         var reservationsDto = await _httpClient
             .GetFromJsonAsync<List<ReservationDto>>(Constants.Controllers.Reservations);
-        
+
         return reservationsDto;
     }
 }

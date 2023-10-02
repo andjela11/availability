@@ -1,3 +1,3 @@
 ﻿namespace Application.Contracts;
 
-public record ReservationDto(int MovieId, int AvailableSeats);
+public record ReservationDto(int Id, int MovieId, int AvailableSeats);

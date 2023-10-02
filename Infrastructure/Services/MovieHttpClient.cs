@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using System.Text.Json;
 using Application.Contracts;
 using Application.Interfaces;
 using Infrastructure.Helpers;
@@ -18,7 +17,7 @@ public class MovieHttpClient : IMovieHttpClient
         _httpClient.BaseAddress = uri;
         _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
     }
-    
+
     public async Task<MovieDto?> GetMovieAsync(int id)
     {
         var movieDto = await _httpClient.GetFromJsonAsync<MovieDto>($"{Constants.Controllers.Movies}/{id}");

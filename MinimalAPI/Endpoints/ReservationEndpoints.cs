@@ -34,9 +34,12 @@ public static class ReservationEndpoints
         return Results.Ok(reservationsDto);
     }
 
-    public static async Task<IResult> ShowAvailableReservations([FromServices] IMediator mediator)
+    public static async Task<IResult> ShowAvailableReservations(
+        [FromServices] IMediator mediator,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10)
     {
-        var showAvailableReservationsQuery = new ShowAvailableReservationsQuery();
+        var showAvailableReservationsQuery = new ShowAvailableReservationsQuery(pageNumber, pageSize);
         var availableReservationsDto = await mediator.Send(showAvailableReservationsQuery);
         return Results.Ok(availableReservationsDto);
     }

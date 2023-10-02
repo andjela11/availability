@@ -29,10 +29,10 @@ public class ShowAvailableReservationsQueryHandlerTests
         {
             new(1, "Thor", null, null, 2020), new(2, "Thor 2", null, null, 2020),
         };
-        
+
         var reservations = new List<ReservationDto>()
         {
-            new(1, 100), new(2, 200),
+            new(1, 1, 100), new(2,2, 200),
         };
 
         _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
@@ -43,24 +43,24 @@ public class ShowAvailableReservationsQueryHandlerTests
         _sut = new ShowAvailableReservationsQueryHandler(_reservationHttpClient.Object, _movieHttpClient.Object);
 
         // Act
-        var result = await _sut.Handle(new ShowAvailableReservationsQuery(), new CancellationToken());
-        
+        var result = await _sut.Handle(new ShowAvailableReservationsQuery(1, 10), new CancellationToken());
+
         // Assert
         result.Should().BeOfType(typeof(List<AvailableReservationDto>));
         result.Count.Should().Be(2);
         result.First().Title.Should().Be(movies.First().Title);
         result.First().AvailableSeats.Should().Be(reservations.First().AvailableSeats);
     }
-    
+
     [Test]
     public async Task Handle_MovieListEmpty_ShouldReturnEntityNotFoundExceptionAsync()
     {
         // Arrange
         List<MovieDto> movies = default;
-        
+
         var reservations = new List<ReservationDto>()
         {
-            new(1, 100), new(2, 200),
+            new(1, 1, 100), new(2, 2, 200),
         };
 
         _movieHttpClient.Setup(x => x.GetAllMoviesAsync())
@@ -71,10 +71,10 @@ public class ShowAvailableReservationsQueryHandlerTests
         _sut = new ShowAvailableReservationsQueryHandler(_reservationHttpClient.Object, _movieHttpClient.Object);
 
         // Act & Assert
-        await _sut.Invoking(x => x.Handle(new ShowAvailableReservationsQuery(), new CancellationToken()))
+        await _sut.Invoking(x => x.Handle(new ShowAvailableReservationsQuery(1, 10), new CancellationToken()))
             .Should().ThrowAsync<EntityNotFoundException>();
     }
-    
+
     [Test]
     public async Task Handle_ReservationsListEmpty_ShouldReturnEntityNotFoundExceptionAsync()
     {
@@ -94,10 +94,10 @@ public class ShowAvailableReservationsQueryHandlerTests
         _sut = new ShowAvailableReservationsQueryHandler(_reservationHttpClient.Object, _movieHttpClient.Object);
 
         // Act & Assert
-        await _sut.Invoking(x => x.Handle(new ShowAvailableReservationsQuery(), new CancellationToken()))
+        await _sut.Invoking(x => x.Handle(new ShowAvailableReservationsQuery(1, 10), new CancellationToken()))
             .Should().ThrowAsync<EntityNotFoundException>();
     }
-    
+
     [Test]
     public async Task Handle_BothListsEmpty_ShouldReturnEntityNotFoundExceptionAsync()
     {
@@ -114,8 +114,8 @@ public class ShowAvailableReservationsQueryHandlerTests
         _sut = new ShowAvailableReservationsQueryHandler(_reservationHttpClient.Object, _movieHttpClient.Object);
 
         // Act
-        var result = await _sut.Handle(new ShowAvailableReservationsQuery(), new CancellationToken());
-        
+        var result = await _sut.Handle(new ShowAvailableReservationsQuery(1, 10), new CancellationToken());
+
         // Assert
         result.Should().BeOfType(typeof(List<AvailableReservationDto>));
         result.Count.Should().Be(0);
