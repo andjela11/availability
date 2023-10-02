@@ -21,6 +21,12 @@ public class CreateReservationCommandHandler : IRequestHandler<CreateReservation
 
         if (reservation is not null)
         {
+            if (request.CreateReservationDto.NumberOfSeats > reservation.AvailableSeats)
+            {
+                throw new NoAvailableSeatsException(
+                    $"There is no {request.CreateReservationDto.NumberOfSeats} seats available! You can reserve {reservation.AvailableSeats} max");
+            }
+            
             reservation = reservation with { AvailableSeats = reservation.AvailableSeats - request.CreateReservationDto.NumberOfSeats };
             await _reservationHttpClient.UpdateReservationAsync(reservation);
             return reservation.Id;
