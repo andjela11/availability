@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.Features.Commands.UpdateGenre;
 
-public record UpdateGenreCommand(Genre Genre) : IRequest;
+public record UpdateGenreCommand(Genre Genre) : IRequest<Unit>;
 

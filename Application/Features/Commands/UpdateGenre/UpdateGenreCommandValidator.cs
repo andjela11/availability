@@ -9,6 +9,7 @@ public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
         RuleFor(x => x.Genre).NotNull();
         When(x => x.Genre is not null, () =>
         {
+            RuleFor(x => x.Genre.Id).NotEmpty();
             RuleFor(x => x.Genre.Name).NotEmpty();
         });
     }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Features.Commands.DeleteGenre;
 
-public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
+public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, Unit>
 {
     private readonly IMongoDBService _mongoDbService;
 
@@ -12,8 +12,9 @@ public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand>
         _mongoDbService = mongoDbService;
     }
     
-    public async Task Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
     {
-        await _mongoDbService.DeleteGenre(request.GenreId);        
+        await _mongoDbService.DeleteGenre(request.GenreId);
+        return new Unit();
     }
 }

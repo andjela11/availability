@@ -4,6 +4,8 @@ using Application.Features.Commands.UpdateGenre;
 using Application.Features.Queries.GetAllGenres;
 using Application.Features.Queries.GetMovie;
 using Domain;
+using FluentValidation;
+using FluentValidation.Results;
 using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,8 +35,6 @@ public static class GenreEndpoints
         [FromBody] Genre genre)
     {
         var updateGenreCommand = new UpdateGenreCommand(genre);
-        // var getMovieQuery = new GetMovieQuery(5);
-        // var result = await mediator.Send(getMovieQuery);
         await mediator.Send(updateGenreCommand);
         return Results.Ok();
     }
