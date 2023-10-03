@@ -16,6 +16,7 @@ public class GetMovieQueryHandler : IRequestHandler<GetMovieQuery, MovieDto?>
 
     public async Task<MovieDto?> Handle(GetMovieQuery request, CancellationToken cancellationToken)
     {
+        return default;
         var movieDto = await _httpClient.GetMovieAsync(request.Id);
 
         if (movieDto is null)

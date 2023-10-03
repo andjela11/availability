@@ -13,7 +13,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddHttpClient<IMovieHttpClient, MovieHttpClient>();
         services.AddHttpClient<IReservationHttpClient, ReservationHttpClient>();
 
-        services.Configure<MongoDBSettings>("MongoDBSettings",_ => configuration.GetSection("MongoDB"));
+        services.Configure<MongoDBSettings>(configuration.GetSection("MongoDB"));
         services.AddSingleton<IMongoDBService, MongoDBService>();
         return services;
     }

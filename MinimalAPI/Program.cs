@@ -26,6 +26,9 @@ app.MapGet("/Reservation/{id:int}", ReservationEndpoints.GetReservationAsync);
 app.MapGet("/Reservation/", ReservationEndpoints.GetAllReservations);
 app.MapGet("/Reservations/", ReservationEndpoints.ShowAvailableReservations);
 
+app.MapGet("/Genres", GenreEndpoints.GetAllGenres);
 app.MapPost("/Genres", GenreEndpoints.CreateGenre);
+app.MapPut("/Genres", GenreEndpoints.UpdateGenre);
+app.MapDelete("/Genres", GenreEndpoints.DeleteGenre);
 
 app.Run();
