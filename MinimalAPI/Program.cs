@@ -6,7 +6,7 @@ using MinimalAPI.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddInfrastructureServices()
+    .AddInfrastructureServices(builder.Configuration)
     .AddApplicationServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,9 +20,12 @@ app.UseSwaggerUI();
 
 app.MapGet("/Movie/{id:int}", MovieEndpoints.GetMovieAsync);
 app.MapGet("/Movie/", MovieEndpoints.FilterMoviesAsync);
+
 app.MapPost("/Reservation/", ReservationEndpoints.CreateReservationAsync);
 app.MapGet("/Reservation/{id:int}", ReservationEndpoints.GetReservationAsync);
 app.MapGet("/Reservation/", ReservationEndpoints.GetAllReservations);
 app.MapGet("/Reservations/", ReservationEndpoints.ShowAvailableReservations);
+
+app.MapPost("/Genres", GenreEndpoints.CreateGenre);
 
 app.Run();
