@@ -14,7 +14,7 @@ public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, str
     
     public async Task<string> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
     {
-        var id = await _mongoDbService.CreateGenre(request.genreName);
+        var id = await _mongoDbService.CreateGenre(request.GenreName);
         return id;
     }
 }

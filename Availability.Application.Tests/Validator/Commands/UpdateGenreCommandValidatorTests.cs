@@ -1,10 +1,9 @@
 using Application.Features.Commands.UpdateGenre;
-using Application.Features.Queries.GetMovie;
 using Domain;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Availability.Application.Tests.Validator;
+namespace Availability.Application.Tests.Validator.Commands;
 
 
 public class UpdateGenreCommandValidatorTests
@@ -27,12 +26,25 @@ public class UpdateGenreCommandValidatorTests
         result.IsValid.Should().BeTrue();
     }
     
+    [Test]
+    public void Validator_InvalidPayload_ShouldBeInvalid()
+    {
+        // Arrange
+        var getMovieQuery = GetValidPayload() with { Genre = new Genre { Name = string.Empty }};
+
+        // Act
+        var result = _validator.Validate(getMovieQuery);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+    
     private UpdateGenreCommand GetValidPayload()
     {
         return new UpdateGenreCommand(new Genre()
         {
             Id = "id",
-            Name = string.Empty
+            Name = "Action"
         });
     }
 }

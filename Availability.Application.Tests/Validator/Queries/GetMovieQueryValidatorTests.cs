@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Availability.Application.Tests.Validator;
+namespace Availability.Application.Tests.Validator.Queries;
 
 public class GetMovieQueryValidatorTests
 {
