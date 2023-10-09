@@ -3,7 +3,7 @@ using Application.Features.Commands.CreateReservation;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Availability.Application.Tests.Validator;
+namespace Availability.Application.Tests.Validator.Commands;
 
 public class CreateReservationCommandValidatorTests
 {

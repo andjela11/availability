@@ -6,7 +6,7 @@ namespace Application.Validation;
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : class, IRequest<TResponse>
 {
-    private IEnumerable<IValidator<TRequest>> _validators;
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
 
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
@@ -22,14 +22,14 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
 
         var context = new ValidationContext<TRequest>(request);
 
-        var errorDectionary = _validators
+        var errorDictionary = _validators
             .Select(x => x.Validate(context))
             .SelectMany(x => x.Errors)
             .ToList();
 
-        if (errorDectionary.Any())
+        if (errorDictionary.Any())
         {
-            throw new ValidationException(errorDectionary);
+            throw new ValidationException(errorDictionary);
         }
 
         return await next();
