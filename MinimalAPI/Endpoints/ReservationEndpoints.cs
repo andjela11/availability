@@ -1,4 +1,5 @@
 ﻿using Application.Contracts;
+using Application.Features.Commands.CancelReservation;
 using Application.Features.Commands.CreateReservation;
 using Application.Features.Queries.GetAllReservations;
 using Application.Features.Queries.GetReservation;
@@ -42,5 +43,15 @@ public static class ReservationEndpoints
         var showAvailableReservationsQuery = new ShowAvailableReservationsQuery(pageNumber, pageSize);
         var availableReservationsDto = await mediator.Send(showAvailableReservationsQuery);
         return Results.Ok(availableReservationsDto);
+    }
+
+    public static async Task<IResult> CancelReservation(
+        [FromServices] IMediator mediator,
+        [FromQuery] int movieId,
+        [FromQuery] int numberOfSeats)
+    {
+        var cancelReservationCommand = new CancelReservationCommand(movieId, numberOfSeats);
+        await mediator.Send(cancelReservationCommand);
+        return Results.Ok();
     }
 }
