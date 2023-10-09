@@ -25,7 +25,7 @@ public class DeleteGenreCommandValidatorTests
     }
     
     [Test]
-    public void Validator_InvalidPayload_ShouldBeInvalid()
+    public void Validator_EmptyGenreId_ShouldBeInvalid()
     {
         // Arrange
         var deleteGenreCommand = GetValidPayload() with {GenreId = string.Empty};

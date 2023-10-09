@@ -27,7 +27,7 @@ public class UpdateGenreCommandValidatorTests
     }
     
     [Test]
-    public void Validator_InvalidPayload_ShouldBeInvalid()
+    public void Validator_EmptyGenreName_ShouldBeInvalid()
     {
         // Arrange
         var getMovieQuery = GetValidPayload() with { Genre = new Genre { Name = string.Empty }};

@@ -25,7 +25,7 @@ public class CreateGenreCommandValidatorTests
     } 
     
     [Test]
-    public void Validator_InvalidPayload_ShouldBeInvalid()
+    public void Validator_EmptyGenreName_ShouldBeInvalid()
     {
         // Arrange
         var createGenreCommand = GetValidPayload() with {GenreName = string.Empty};
